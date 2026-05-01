@@ -232,7 +232,7 @@ export default function JudgePage() {
             className="font-display text-5xl md:text-7xl text-center mb-2 text-glow-yellow"
             style={{ color: '#FFD90F' }}
           >
-            RALPHTHON
+            방구석 RALPHTHON
           </h1>
           <p className="text-center text-lg mb-2" style={{ color: '#8892b0' }}>
             Seoul Hackathon Judging

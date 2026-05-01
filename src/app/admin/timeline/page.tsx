@@ -10,7 +10,7 @@ export default function AdminTimelinePage() {
     <div className="min-h-screen p-6">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-2 text-3xl font-bold">
-          Ralphthon
+          방구석 RALPHTHON
         </h1>
         <p className="mb-8 text-lg text-muted-foreground">
           {t('subtitle')}

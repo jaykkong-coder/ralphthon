@@ -149,7 +149,7 @@ export default function LoginPage() {
             letterSpacing: '0.08em',
           }}
         >
-          RALPHTHON
+          방구석 RALPHTHON
         </h1>
 
         {/* Subtitle */}

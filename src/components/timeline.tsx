@@ -1,9 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -23,16 +21,15 @@ type SFEntry = {
 }
 
 const SF_ENTRIES: SFEntry[] = [
-  { time: '08:30 AM', activityKey: 'sf_t0830' },
-  { time: '09:30 AM', activityKey: 'sf_t0930' },
-  { time: '10:00 AM', activityKey: 'sf_t1000' },
-  { time: '12:30 PM', activityKey: 'sf_t1230', lobster: true },
-  { time: '12:30–03:30 PM', activityKey: 'sf_t1230_1530' },
-  { time: '03:30 PM', activityKey: 'sf_t1530' },
-  { time: '04:30 PM', activityKey: 'sf_t1630' },
-  { time: '04:30–05:30 PM', activityKey: 'sf_t_judging' },
-  { time: '05:30 PM', activityKey: 'sf_t1730', highlight: true },
-  { time: '06:30 PM', activityKey: 'sf_t1830' },
+  { time: '02:00 PM', activityKey: 'sf_t0830' },
+  { time: '02:30 PM', activityKey: 'sf_t0930' },
+  { time: '02:45 PM', activityKey: 'sf_t1000' },
+  { time: '03:30 PM', activityKey: 'sf_t1230', lobster: true },
+  { time: '03:30–05:30 PM', activityKey: 'sf_t1230_1530' },
+  { time: '05:30 PM', activityKey: 'sf_t1530' },
+  { time: '06:00 PM', activityKey: 'sf_t1630' },
+  { time: '06:30–07:00 PM', activityKey: 'sf_t_judging' },
+  { time: '07:00 PM', activityKey: 'sf_t1730', highlight: true },
   { time: '07:30 PM', activityKey: 'sf_t1930' },
   { time: '~08:00 PM', activityKey: 'sf_t2000' },
 ]
@@ -272,35 +269,12 @@ export function TimelineSchedule({ city }: { city: City }) {
   return city === 'SF' ? <SFSchedule /> : <SeoulSchedule />
 }
 
-function CityTabs({ city, onChange }: { city: City; onChange: (c: City) => void }) {
-  return (
-    <div className="flex gap-2">
-      <Button
-        variant={city === 'SF' ? 'default' : 'outline'}
-        onClick={() => onChange('SF')}
-        size="sm"
-      >
-        SF
-      </Button>
-      <Button
-        variant={city === 'Seoul' ? 'default' : 'outline'}
-        onClick={() => onChange('Seoul')}
-        size="sm"
-      >
-        Seoul
-      </Button>
-    </div>
-  )
-}
-
 export function Timeline() {
-  const [city, setCity] = useState<City>('SF')
-
+  // 단일 행사 — 방구석 RALPHTHON @ Seoul Forest
   return (
     <div className="flex flex-col gap-6">
-      <CityTabs city={city} onChange={setCity} />
-      <EventInfo city={city} />
-      <TimelineSchedule city={city} />
+      <EventInfo city="SF" />
+      <TimelineSchedule city="SF" />
     </div>
   )
 }
