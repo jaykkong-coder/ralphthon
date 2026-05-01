@@ -94,12 +94,8 @@ export function Guide() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* SF / Seoul tabs */}
-      <div className="flex gap-2">
-        <Button variant={city === 'SF' ? 'default' : 'outline'} onClick={() => setCity('SF')} size="sm">SF</Button>
-        <Button variant={city === 'Seoul' ? 'default' : 'outline'} onClick={() => setCity('Seoul')} size="sm">Seoul</Button>
-      </div>
-      {city === 'SF' ? <GuideEventInfo /> : <EventInfo city={city} />}
+      {/* 단일 행사 — 방구석 RALPHTHON */}
+      <GuideEventInfo />
       <TimelineSchedule city={city} />
 
       {city === 'SF' && <>
