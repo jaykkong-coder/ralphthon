@@ -116,6 +116,8 @@ export default function RegisterPage() {
       .single()
 
     if (teamError || !team) {
+      console.error('[register] team insert error:', teamError, 'payload:', teamPayload)
+      alert(`팀 등록 실패: ${teamError?.message ?? 'unknown'}\ncode: ${teamError?.code ?? '-'}\ndetails: ${teamError?.details ?? '-'}`)
       setSubmitting(false)
       return
     }

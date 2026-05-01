@@ -12,63 +12,9 @@ interface JudgeGroup {
   picks: number // number of finalists to select
 }
 
-const JUDGE_GROUPS: JudgeGroup[] = [
-  {
-    judge: '한기용',
-    picks: 1,
-    teamIds: [
-      'df16c443-18fd-4696-aaf1-d0803c210084', // 엑셀 팬션? 사용하지 마세요
-      'eba7119b-4be3-46a7-bb75-b8873d7542ab', // Mindful Labs
-      'd21f103a-699b-4dce-b06b-a68c389af7e7', // bookworm
-      '6bacc276-0fb8-4193-9efb-3cdc6a740928', // Supermango
-      '5c7af365-b59b-42e6-a909-281f836624df', // Sunhoo Kim
-      'b5a0de72-da3d-4944-8367-7ac9a2944457', // Dee
-      '4714d60a-8788-4c89-a5ac-07b8c679c215', // SELF_RALPH
-    ],
-  },
-  {
-    judge: '이태양',
-    picks: 1,
-    teamIds: [
-      '4c975ee1-1e3f-447c-8071-ec9a99467314', // Nudge
-      'dc57a4af-0c03-4e7c-8e8b-24baae37fc22', // BlueLog
-      '75cfb371-b4f5-4211-8527-85b49fce907d', // WooWooMo
-      '66a2a913-4718-4628-b07c-f6fd12196af9', // One For All
-      '08f2aad5-6aaa-49f7-b50c-46c93cd488a7', // Team Kaos(aka.chaos)
-      'e8502311-6b0b-49cc-ae1e-8023b1c74c80', // GhostView
-      '9dd1c8ab-8084-4370-b165-25ddf39d15cd', // ha-fam
-    ],
-  },
-  {
-    judge: '제프리+이재규',
-    picks: 2,
-    teamIds: [
-      '76445e52-b1ad-4f43-a103-082f5dc9ccc7', // cosmos-makers
-      '02996966-b073-4055-93b1-ff6ba6c29e4c', // AER
-      '7ddf068f-b2de-48b6-8395-04ea604786bd', // 032926,Today
-      'd73746bc-868b-43fa-97a5-1860629c0a36', // Agent Ludens
-      '74ed2eee-8038-44e0-be4b-c5f8b99873ed', // Dormammu
-      'e3342f6a-3e55-40e1-898b-d25ee37e90d0', // SwarmOps
-      'b615b0e2-e5ac-40d9-915a-fcdd353caf7d', // DigestAnything
-      '81b052fc-fbff-4725-8074-c3aa9d98e420', // mk48
-      'df3c9484-0a14-451f-b8cb-96a96cf8dc55', // dragon stone
-      'a108643b-238b-4945-9c39-f119063dd2a8', // Aristo
-    ],
-  },
-  {
-    judge: '이상희',
-    picks: 1,
-    teamIds: [
-      '0b8ce66b-9250-4fca-b9d2-395dac1c89ad', // auto-hunt
-      'e40f4eab-ab7b-4660-874d-cb90ce3bf75f', // gowider
-      'ec85f3e9-1e61-4b97-9691-81d7b08389dc', // Team GP
-      '37b91609-7583-40f6-a90a-cd74cee3a0f2', // polysona
-      '47ce902d-c8f0-4bf9-9e66-6ee805092ca7', // Nomadams
-      '509e7c84-8adf-4910-9fba-3de8f14eac03', // Nexus
-      'ef11b28e-d8f2-4a08-a0f8-3ac0db4f3594', // 비버와 사육사
-    ],
-  },
-]
+// 7명 친목 행사 — 호스트 1명이 모든 등록된 팀을 심사. 팀 ID는 DB에서 동적 조회.
+const HOST_JUDGE_NAME = 'Jaykong'
+const HOST_PICKS = 1 // 우승 1팀 선발
 
 const CRITERIA = [
   { key: 'score_impact', label: '비즈니스 임팩트', emoji: '🚀' },
@@ -121,6 +67,18 @@ export default function JudgePage() {
   const [saving, setSaving] = useState<string | null>(null)
   const [dbAvailable, setDbAvailable] = useState(false)
   const [showAllGroups, setShowAllGroups] = useState(false)
+
+  // 동적 judgeGroups — 등록된 모든 팀을 호스트 1명이 심사
+  const judgeGroups: JudgeGroup[] = useMemo(() => {
+    if (teams.length === 0) return []
+    return [
+      {
+        judge: HOST_JUDGE_NAME,
+        picks: HOST_PICKS,
+        teamIds: teams.map((t) => t.id),
+      },
+    ]
+  }, [teams])
 
   // Load teams from Supabase
   useEffect(() => {
@@ -178,7 +136,7 @@ export default function JudgePage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const judge = params.get('judge')
-    if (judge && JUDGE_GROUPS.some((g) => g.judge === judge)) {
+    if (judge && judgeGroups.some((g) => g.judge === judge)) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedJudge(judge)
     }
@@ -254,7 +212,7 @@ export default function JudgePage() {
 
   const saveAll = useCallback(async () => {
     if (!selectedJudge) return
-    const group = JUDGE_GROUPS.find((g) => g.judge === selectedJudge)
+    const group = judgeGroups.find((g) => g.judge === selectedJudge)
     if (!group) return
     for (const teamId of group.teamIds) {
       if (scores[teamId]) {
@@ -283,7 +241,7 @@ export default function JudgePage() {
             Final 5 Teams (1+1+2+1)
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {JUDGE_GROUPS.map((group, idx) => (
+            {judgeGroups.map((group, idx) => (
               <button
                 key={group.judge}
                 onClick={() => setSelectedJudge(group.judge)}
@@ -358,6 +316,7 @@ export default function JudgePage() {
             <AllGroupsOverview
               teams={teams}
               scores={scores}
+              judgeGroups={judgeGroups}
               onClose={() => setShowAllGroups(false)}
             />
           )}
@@ -366,7 +325,7 @@ export default function JudgePage() {
     )
   }
 
-  const currentGroup = JUDGE_GROUPS.find((g) => g.judge === selectedJudge)!
+  const currentGroup = judgeGroups.find((g) => g.judge === selectedJudge)!
   const groupTeams = currentGroup.teamIds
     .map((id) => getTeam(id))
     .filter((t): t is Team => t !== undefined)
@@ -687,10 +646,12 @@ function ScoreInput({
 function AllGroupsOverview({
   teams,
   scores,
+  judgeGroups,
   onClose,
 }: {
   teams: Team[]
   scores: Record<string, TeamScore>
+  judgeGroups: JudgeGroup[]
   onClose: () => void
 }) {
   const getTeam = (id: string) => teams.find((t) => t.id === id)
@@ -721,7 +682,7 @@ function AllGroupsOverview({
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {JUDGE_GROUPS.map((group, gIdx) => (
+          {judgeGroups.map((group, gIdx) => (
             <div key={group.judge}>
               <h3
                 className="font-display text-xl mb-3"
