@@ -79,15 +79,15 @@ export default function LoginPage() {
           {/* Left sponsors */}
           <div className="hidden sm:flex flex-col items-center gap-8">
             {[
-              { src: '/openai-1.png', alt: 'OpenAI', delay: '0s', duration: '5s', h: 'h-12' },
-              { src: '/d2sf-2.png', alt: 'D2SF', delay: '-1.5s', duration: '4.5s', h: 'h-40' },
-              { src: '/hp-3.png', alt: 'HP', delay: '-3s', duration: '5.5s', h: 'h-24' },
+              { src: '/openai-1.svg', alt: 'Kolon FnC', delay: '0s', duration: '5s', h: 'h-16' },
+              { src: '/d2sf-2.svg', alt: 'Meritz Securities', delay: '-1.5s', duration: '4.5s', h: 'h-16' },
+              { src: '/hp-3.svg', alt: 'SK Gas', delay: '-3s', duration: '5.5s', h: 'h-16' },
             ].map((s) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className={`${s.h} w-auto opacity-70 hover:opacity-100 transition-opacity duration-300`}
+                className={`${s.h} w-auto max-w-32 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300`}
                 style={{
                   animation: mounted ? `float ${s.duration} ease-in-out ${s.delay} infinite, fadeInUp 0.5s ease-out` : undefined,
                   filter: 'brightness(0.8)',
@@ -109,15 +109,15 @@ export default function LoginPage() {
           {/* Right sponsors */}
           <div className="hidden -translate-y-10 sm:flex flex-col items-center gap-8">
             {[
-              { src: '/kv-4.png', alt: 'KV', delay: '-2s', duration: '4.8s', h: 'h-32' },
-              { src: '/bass-5.png', alt: 'Bass', delay: '-0.5s', duration: '5.2s', h: 'h-32' },
-              { src: '/wb-6.svg', alt: 'WB', delay: '-3.5s', duration: '4.3s', h: 'h-[2.625rem]' },
+              { src: '/kv-4.png', alt: 'Musinsa', delay: '-2s', duration: '4.8s', h: 'h-16' },
+              { src: '/bass-5.svg', alt: 'BEP', delay: '-0.5s', duration: '5.2s', h: 'h-16' },
+              { src: '/wb-6.png', alt: 'Next Chapter', delay: '-3.5s', duration: '4.3s', h: 'h-16' },
             ].map((s) => (
               <img
                 key={s.src}
                 src={s.src}
                 alt={s.alt}
-                className={`${s.h} w-auto opacity-70 hover:opacity-100 transition-opacity duration-300`}
+                className={`${s.h} w-auto max-w-32 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300`}
                 style={{
                   animation: mounted ? `float ${s.duration} ease-in-out ${s.delay} infinite, fadeInUp 0.5s ease-out` : undefined,
                   filter: 'brightness(0.8)',
@@ -129,7 +129,7 @@ export default function LoginPage() {
 
         {/* Mobile sponsors (horizontal scroll) */}
         <div className="flex sm:hidden flex-wrap items-center justify-center gap-4 -mt-2">
-          {['/openai-1.png', '/d2sf-2.png', '/hp-3.png', '/kv-4.png', '/bass-5.png', '/wb-6.svg'].map((src) => (
+          {['/openai-1.svg', '/d2sf-2.svg', '/hp-3.svg', '/kv-4.png', '/bass-5.svg', '/wb-6.png'].map((src) => (
             <img
               key={src}
               src={src}
