@@ -60,7 +60,7 @@ export default function ParticipantLayout({
             className="font-display text-xl tracking-wider transition-all duration-200"
             style={{ color: '#FFD90F' }}
           >
-            <span style={{ color: '#8892b0' }}>{'>'}_</span> RALPHTHON
+            <span style={{ color: '#8892b0' }}>{'>'}_</span> 방구석 RALPHTHON
           </Link>
           <Link
             href="/guide"

@@ -101,7 +101,7 @@ export function EventInfo({ city }: { city: City }) {
         { label: t('dateLabel'), value: t('sf_date') },
         { label: t('venueLabel'), value: t('sf_venue') },
         { label: t('scaleLabel'), value: t('scale') },
-        { label: t('lumaLabel'), value: t('luma'), isLink: true, href: 'https://luma.com/kxoq82yq' },
+        { label: t('lumaLabel'), value: t('luma'), isLink: true, href: 'https://www.linkedin.com/in/chang-in-kong-57060b171/' },
         { label: t('crossCityLabel'), value: t('crossCity') },
       ]
     : [
@@ -188,7 +188,7 @@ function SFSchedule() {
                 )}
                 {entry.highlight && (
                   <Badge variant="outline" className="ml-1 text-[10px]">
-                    CROSS-CITY
+                    MAIN
                   </Badge>
                 )}
               </span>
